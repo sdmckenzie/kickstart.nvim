@@ -209,6 +209,35 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('i', 'jk', '<Esc>')
 vim.keymap.set('n', '<leader>w', ':w<CR>', { desc = 'Save the file.' })
 
+-- Keymaps for Harpoon
+
+local harpoon = require 'custom.plugins.harpoon'
+local map = vim.keymap.set
+
+-- Add current file to Harpoon
+map('n', '<leader>a', function()
+  harpoon:list():add()
+end, { desc = 'Harpoon: add file' })
+
+-- Toggle Harpoon quick menu
+map('n', '<leader>h', function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end, { desc = 'Harpoon: menu' })
+
+-- Jump to marks
+map('n', '<leader>1', function()
+  harpoon:list():select(1)
+end, { desc = 'Harpoon: file 1' })
+map('n', '<leader>2', function()
+  harpoon:list():select(2)
+end, { desc = 'Harpoon: file 2' })
+map('n', '<leader>3', function()
+  harpoon:list():select(3)
+end, { desc = 'Harpoon: file 3' })
+map('n', '<leader>4', function()
+  harpoon:list():select(4)
+end, { desc = 'Harpoon: file 4' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -675,10 +704,10 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
-        -- rust_analyzer = {},
+        clangd = {},
+        gopls = {},
+        pyright = {},
+        rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -946,6 +975,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = function()
       require('nvim-treesitter.install').update { with_sync = true }()
+      require('nvim-treesitter.install').compilers { 'clang' }
     end,
     main = 'nvim-treesitter.config', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
@@ -990,7 +1020,7 @@ require('lazy').setup({
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
