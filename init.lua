@@ -209,6 +209,14 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('i', 'jk', '<Esc>')
 vim.keymap.set('n', '<leader>w', ':w<CR>', { desc = 'Save the file.' })
 
+-- Tab options
+
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.softtabstop = 2
+vim.opt.smartindent = true -- Optional: enables intelligent auto-indenting
+
 -- Keymaps for Harpoon
 
 local harpoon = require 'custom.plugins.harpoon'
